@@ -19,7 +19,11 @@ Was given 1 hour to try to create a game of Battleship with AI.  Did not fully f
 - AI randomly chooses where to attack
 
 #To Do:
+- *** FOR HUMAN CLASS *** : Change it so that if they type in input wrong, change to return generate(in, type);
 - Make it so that player nor AI can overlap previously placed ships (easy)
 - Make it so that AI is more smart about where it attacks (not so easy)
 - Change the printed view of the player's board so that it's easier to view (right now it displays both enemies and players view for debugging purposes) (easy)
 - Add online with 2 players (I think this actually won't be hard)
+
+#Bugs:
+- For some reason I can't do ranpos.nextInt(10) for creating the x/y of AI's random generating function.  For now switched to ranpos.nextInt(9)
