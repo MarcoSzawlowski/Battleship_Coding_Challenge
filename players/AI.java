@@ -18,10 +18,10 @@ public class AI extends Players {
 
 		Map<String, Ships> output_list = new HashMap();
 		
-		output_list.put("B", randomly_place("Battleship"));
-		output_list.put("D", randomly_place("Destroyer"));
-		output_list.put("S", randomly_place("Submarine"));
-		output_list.put("C", randomly_place("Cruiser"));
+		output_list.put("B", randomly_place("Battleship", output_list));
+		output_list.put("D", randomly_place("Destroyer", output_list));
+		output_list.put("S", randomly_place("Submarine", output_list));
+		output_list.put("C", randomly_place("Cruiser", output_list));
 		
 		return output_list;
 	}
@@ -32,18 +32,31 @@ public class AI extends Players {
 		return false;
 	}
 	
-	public static Ships randomly_place(String type){
+	public static Ships randomly_place(String type, Map<String, Ships> list){
 		System.out.println(type);
 		Random ranpos = new Random();
-		
-		if (type == "Battleship")
-			return new Battleship(ranpos.nextInt(9), ranpos.nextInt(9),ranpos.nextInt(2));
-		else if (type == "Destroyer")
-			return new Destroyer(ranpos.nextInt(9), ranpos.nextInt(9),ranpos.nextInt(2));
-		else if (type == "Submarine")
-			return new Submarine(ranpos.nextInt(9), ranpos.nextInt(9),ranpos.nextInt(2));
-		else
-			return new Cruiser(ranpos.nextInt(9), ranpos.nextInt(9),ranpos.nextInt(2));
+		int x = ranpos.nextInt(9);
+        int y = ranpos.nextInt(9);
+        int direction = ranpos.nextInt(2);
+
+        Ships newship = null;
+
+        if (type == "Battleship")
+            newship = new Battleship(x, y,ranpos.nextInt(2));
+        else if (type == "Destroyer")
+            newship = new Destroyer(x, y,ranpos.nextInt(2));
+        else if (type == "Submarine")
+            newship = new Submarine(x, y,ranpos.nextInt(2));
+        else
+            newship = new Cruiser(x, y,ranpos.nextInt(2));
+
+        // Check to see if our new ship placement would overlap existing placed ships
+        for (Ships s : list.values()){
+            if(s.check_overlap(x, y, newship.get_length(),direction))
+                return randomly_place(type, list);
+        }
+
+        return newship;
 	}
 	
 }

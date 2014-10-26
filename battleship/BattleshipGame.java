@@ -16,7 +16,7 @@ public class BattleshipGame {
 		// INITIATE: start screen
 		System.out.println("\t\t\tWelcome to Battleship!");
 		p1.print_grid_alternate(p2.get_grid());
-		//p2.print_grid_alternate(p1.get_grid());
+		p2.print_grid_alternate(p1.get_grid());
 		
 		// INPUT: input loop
 		while(true){
@@ -34,7 +34,7 @@ public class BattleshipGame {
 			// Computer's move
 			System.out.println("Enemy move");
 			p2.do_attack(p1, in);
-			p1.print_grid_alternate(p2.get_grid());
+			p2.print_grid_alternate(p2.get_grid());
 			
 			// Check to see if player has lost
 			if (p1.isdead()){

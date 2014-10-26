@@ -70,6 +70,41 @@ public class Ships {
 			for(int i = y; i < y + length; i++)
 				grid[x][i] = type.substring(0,1);
 		}
-		
 	}
+
+    public boolean can_place(int x, int y){
+        if (direction == 1){
+            if (x >= this.x && x < (this.x + length) && y == this.y) {
+                return false;
+            }
+        }
+        else{
+            if (y >= this.y && y < (this.y + length) && x == this.x){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public int get_length(){
+        return length;
+    }
+
+    public String get_type(){
+        return type;
+    }
+
+    public boolean check_overlap(int x, int y, int length, int direction){
+        for (int i = 0; i < length; i++){
+            if (direction == 1) {
+                if (!can_place(i, y))
+                    return true;
+            }
+            else{
+                if (!can_place(x, i))
+                    return true;
+            }
+        }
+        return false;
+    }
 }
